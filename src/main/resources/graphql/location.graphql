@@ -1,0 +1,14 @@
+type Location{
+    id:ID!
+    name: String!
+    address: String!
+}
+
+type Query{
+    findAllLocations:[Location]!
+}
+type Mutation{
+    newLocation(id:ID!,name:String!,address:String!):Boolean!
+    deleteLocation(id:ID!):Boolean!
+    updateLocationName(id:ID!,name:String!):Location!
+}
