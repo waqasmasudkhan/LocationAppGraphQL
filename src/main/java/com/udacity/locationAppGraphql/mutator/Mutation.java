@@ -17,8 +17,8 @@ public class Mutation implements GraphQLMutationResolver {
         this.locationRepository=locationRepository;
     }
 
-    public boolean newLocation(Long Id, String name, String address){
-        Location location = new Location(Id,name,address);
+    public boolean newLocation(Long id, String name, String address){
+        Location location = new Location(id,name,address);
         Optional<Location> optionalLocation = Optional.ofNullable(locationRepository.save(location));
         if(optionalLocation.isPresent()){
             return true;
@@ -27,14 +27,13 @@ public class Mutation implements GraphQLMutationResolver {
         }
     }
 
-    public boolean deleteLocation(Long Id){
-        boolean deleted;
+    public boolean deleteLocation(Long id){
         locationRepository.deleteById(Id);
         return true;
     }
 
-    public Location updateLocationName(Long Id, String name){
-        Optional optionalLocation = Optional.ofNullable(locationRepository.findById(Id));
+    public Location updateLocationName(Long id, String name){
+        Optional optionalLocation = Optional.ofNullable(locationRepository.findById(id));
         if(optionalLocation.isPresent()){
             Location newLocation = (Location) optionalLocation.get();
             newLocation.setName(name);
@@ -42,7 +41,7 @@ public class Mutation implements GraphQLMutationResolver {
             return newLocation;
         }
         else{
-            throw new LocationNotFoundException(Id,"Location was not found");
+            throw new LocationNotFoundException(id, "Location was not found");
         }
     }
 
